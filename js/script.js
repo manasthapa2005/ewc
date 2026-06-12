@@ -27,4 +27,36 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', () => {
         document.body.style.height = `${window.innerHeight}px`;
     });
+
+    // --- ADMIN LOGIN MODAL LOGIC ---
+    const adminModal = document.getElementById('admin-login-modal');
+    const closeBtn = document.getElementById('admin-modal-close-btn');
+    const togglePasswordBtn = document.getElementById('toggle-password');
+    const passwordInput = document.getElementById('admin-password');
+
+    if (adminModal) {
+        // Ensure modal is visible
+        adminModal.classList.remove('hidden');
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                window.location.href = 'main.php?frmid=0';
+            });
+        }
+
+        // Close on clicking backdrop overlay
+        adminModal.addEventListener('click', (e) => {
+            if (e.target === adminModal) {
+                window.location.href = 'main.php?frmid=0';
+            }
+        });
+    }
+
+    if (togglePasswordBtn && passwordInput) {
+        togglePasswordBtn.addEventListener('click', () => {
+            const isPassword = passwordInput.getAttribute('type') === 'password';
+            passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+            togglePasswordBtn.textContent = isPassword ? '🔒' : '👁️';
+        });
+    }
 });

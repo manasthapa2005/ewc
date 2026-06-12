@@ -1,40 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo Gallery | ONGC EWC</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-</head>
+<?php
+if (basename($_SERVER['SCRIPT_FILENAME']) === 'gallery.php') {
+    header("Location: ../main.php?frmid=4");
+    exit;
+}
+include("include/top-nav.php");
+?>
 <body class="interior-body">
 
-    <header class="main-header">
-        <div class="container header-container">
-            <div class="brand-identity">
-                <img src="../assets/images/ongc_logo.png" alt="ONGC Logo" class="logo-ongc">
-                <div class="brand-text">
-                    <h1>ONGC EWC</h1>
-                    <p>EMPLOYEE WELFARE COMMITTEE</p>
-                </div>
-            </div>
-
-            <nav class="main-nav">
-                <div class="nav-links">
-                    <a href="../index.html" class="nav-item current"><i class="fa-solid fa-house"></i> Home</a>
-                    <a href="../pages/status.html" class="nav-item"><i class="fa-regular fa-address-book"></i> Booking Status</a>
-                    <a href="../pages/request.html" class="nav-item"><i class="fa-regular fa-calendar-check"></i> Booking Request</a>
-                    <a href="../pages/welfare.html" class="nav-item">Welfare Schemes</a>
-                    <a href="#" class="nav-item"><i class="fa-regular fa-image"></i> Photo Gallery</a>
-                    <a href="#" class="nav-item"><i class="fa-solid fa-user-tie"></i> Executive Body</a>
-                    <!--<a href="#" class="nav-item bg-pill"><i class="fa-regular fa-comment-dots"></i> Feedback</a> -->
-                    <a href="#" class="nav-item bg-pill">About Us</a>
-                    
-                    <a href="#" class="admin-login-btn"><i class="fa-regular fa-circle-user"></i> Admin Login <i class="fa fa-chevron-down"></i></a>
-                </div>
-            </nav>
-        </div>
-    </header>
+<?php
+    include("include/header.php");
+    include("include/slider.php");
+    ?>
 
     <main class="container interior-main-layout">
         <div class="page-title-block image-gallery-header-row">
@@ -100,11 +76,9 @@
         </div>
     </main>
 
-    <footer class="main-footer">
-        <div class="container footer-content">
-            <p>&copy; 2026 ONGC EWS - Employee Welfare Committee. All Rights Reserved.</p>
-        </div>
-    </footer>
+    <?php
+include("include/footer.php")
+?>
 
 </body>
 </html>

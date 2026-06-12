@@ -256,7 +256,7 @@ body, html {
 
 /* --- FLOATING MODERN WELFARE GRID --- */
 .welfare-grid-section {
-    height: 10vh; /* Scaled down to prevent pushing lower sections out of place */
+    height: 8vh; /* Scaled down to prevent pushing lower sections out of place */
     position: relative;
     z-index: 10;
 }
@@ -326,36 +326,44 @@ body, html {
 
 /* --- FIXED THREE-COLUMN LOWER MAIN PANEL (34vh) --- */
 .updates-container {
-    height: 35vh;
+    height: 37vh;
     display: grid;
-    grid-template-columns: 1.2fr 1.2fr 1fr; /* Enforces side-by-side columns strictly */
-    gap: 15px;
-    padding-top: 10px; /* Snaps the columns cleanly into place below the grid cards */
+    grid-template-columns: 1.2fr 1.2fr 1fr; /* Rigid horizontal structural lock */
+    gap: 20px;
+    padding-top: 4vh; 
     padding-bottom: 10px;
     box-sizing: border-box;
 }
 .update-col {
     background-color: #FFFFFF;
-    border-radius: 6px;
-    padding: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.01);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     border: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    height: 100%;
+}
+.section.update-col {
+    height: auto !important;
+    max-height: none !important;
+    min-height: unset !important;
+    display: inherit !important; /* Reverts back to your original layout rule */
+    overflow: visible !important;
 }
 
 .col-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     border-bottom: 2px solid #F4F6F9;
     padding-bottom: 6px;
 }
 
 .col-header h3 {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     display: flex;
     align-items: center;
@@ -367,14 +375,6 @@ body, html {
     font-weight: 600;
     color: var(--maroon-primary);
     text-decoration: none;
-}
-
-.list-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    justify-content: space-between;
-    flex-grow: 1;
 }
 
 .list-item {
@@ -661,11 +661,15 @@ body.interior-body {
     border-radius: 6px;
     padding: 12px;
     margin-bottom: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 
+                0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);            
 }
 .filter-search-card h4 { font-size: 12.5px; margin-bottom: 8px; color: #334155; }
 .filter-form-inputs { display: flex; gap: 15px; align-items: flex-end; }
 .input-field-group { display: flex; flex-direction: column; gap: 4px; flex: 1; }
-.input-field-group label { font-size: 11px; font-weight: 600; color: #64748B; }
+.input-field-group label { font-size: 11px; font-weight: 600; color: #7B1416; }
 .input-field-group input { 
     padding: 6px 10px; border: 1px solid #CBD5E1; border-radius: 4px; font-size: 12px; height: 32px; 
 }
@@ -703,11 +707,47 @@ body.interior-body {
 .table-search-input { flex: 1; }
 .btn-export-excel { background: #F1F5F9; border: 1px solid #CBD5E1; height: 30px; width: 35px; border-radius: 4px; color: #15803D; cursor: pointer; }
 
-/* TABLE CONSTRAINTS WITH INTERNAL INTERNAL SCROLLING ENGINE */
-.table-scroll-wrapper { flex: 1; overflow-y: auto; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 0 0 6px 6px; }
-.status-data-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12px; }
-.status-data-table th { background: #F8FAFC; padding: 10px; font-weight: 600; color: #475569; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; }
-.status-data-table td { padding: 10px; border-bottom: 1px solid #F1F5F9; color: #334155; }
+.list-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+/* 3. Re-architect the scroll wrapper block as a strict, independent viewport box */
+div.table-scroll-wrapper {
+    display: block !important;
+    width: 100% !important;
+    max-height: 290px !important; /* Elegant size constraint that aligns with your announcements column height */
+    overflow-y: auto !important;   /* Dynamic vertical scrolling - only shows up when needed */
+    overflow-x: auto !important;   /* Horizontal safety scrolling wrapper fallback */
+    border: 1px solid #f1f5f9 !important;
+    background-color: #ffffff !important;
+}
+
+/* 4. Enforce solid grid tabular formatting on the child table element */
+table.status-data-table {
+    width: 100% !important;
+    display: table !important;
+    border-collapse: collapse !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 5. Force the underlying structural table elements to obey cell rows */
+table.status-data-table tr {
+    display: table-row !important;
+    height: auto !important;
+
+}
+
+table.status-data-table td {
+    display: table-cell !important;
+    padding: 12px 15px !important;
+    vertical-align: middle !important;
+}
+.status-data-table thead th {position: sticky;top: 0;background-color: #f8f9fa; z-index: 1; box-shadow: inset 0 -1px 0 #e0e0e0;}
 .badge-status { padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 600; }
 .badge-status.status-pending { background: #FEF3C7; color: #D97706; }
 .badge-status.status-confirmed { background: #DCFCE7; color: #15803D; }
@@ -757,3 +797,869 @@ body.interior-body {
 .gallery-action-footer-row { display: flex; justify-content: center; padding-top: 5px; }
 .btn-load-more-photos { background: var(--maroon-primary); color: #FFFFFF; border: none; padding: 6px 20px; font-size: 12px; font-weight: 600; border-radius: 4px; cursor: pointer; }
 .btn-load-more-photos:hover { background: var(--maroon-dark); }
+
+/* ==========================================================================
+   MODERN MINIMALIST EXECUTIVE COMMITTEE TABLE STYLING
+   ========================================================================== */
+
+/* Main outer container widget card */
+.executive-committee-container {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+/* Header margin tracking spacing */
+.executive-committee-container .col-header {
+    margin-bottom: 18px;
+}
+
+/* Force structural grid table alignment behavior */
+.executive-table {
+    width: 100% !important;
+    display: table !important;
+    border-collapse: collapse !important;
+}
+
+/* Smooth scrolling container with restricted window height bounds */
+.executive-committee-container .table-scroll-wrapper {
+    display: block !important;
+    width: 100% !important;
+    max-height: 28vh !important; /* Locks table area perfectly within our 34vh layout window */
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* Locked sticky top header layer configuration styling */
+.executive-table thead th {
+    position: sticky !important;
+    top: 0 !important;
+    background-color: #F8FAFC !important;
+    font-size: 11px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700 !important;
+    color: #475569 !important;
+    padding: 6px 8px !important;
+    text-align: left !important;
+    z-index: 2;
+    box-shadow: inset 0 -1px 0 #E2E8F0 !important;
+}
+
+/* Clear, borderless body rows */
+.executive-table tr {
+    display: table-row !important;
+}
+
+/* Soft elegant row hover highlight interaction */
+.executive-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.executive-table tbody td {
+    display: table-cell !important;
+    font-size: 11.5px !important;
+    padding: 8px 8px !important; /* Compact, minimalist grid height */
+    vertical-align: middle !important;
+    border-bottom: 1px solid #F1F5F9 !important;
+}
+
+/* Specific text treatments matching layout mock */
+.executive-table td.member-name-cell {
+    color: #0F172A !important;
+    font-weight: 600 !important;
+}
+.executive-table td.position-cell {
+    color: #475569 !important;
+    font-weight: 500;
+}
+.executive-table td.contact-cell,
+.executive-table td.term-cell {
+    color: #64748B !important;
+}
+
+/* ==========================================================================
+   INTEGRATED BOOKING CALENDAR CSS FRAMEWORK
+   ========================================================================== */
+.integrated-calendar-container {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0 30px 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+.calendar-header-ribbon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1e3a8a; /* Clean deep corporate blue to coordinate with your theme */
+    padding: 10px 18px;
+    border-radius: 6px;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.calendar-header-ribbon h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.month-nav-arrow {
+    font-size: 13px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.month-nav-arrow:hover {
+    opacity: 1;
+}
+
+.calendar-days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+}
+
+/* Weekday header row format styling */
+.weekday-header {
+    padding: 8px 0;
+    font-weight: 600;
+    font-size: 13px;
+    color: #475569;
+    background-color: #f8fafc;
+    border-bottom: 2px solid #e2e8f0;
+    text-align: center;
+}
+
+/* Base style rules for specific dynamic state cell values */
+.calendar-date-cell {
+    padding: 12px 0;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.cell-empty {
+    background-color: transparent;
+}
+
+/* Status 1: Normal Available / White status box definition */
+.day-normal {
+    background-color: #ffffff;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+}
+
+/* Status 2: Booked / Blocked / Red status box definition */
+.day-booked {
+    background-color: #fee2e2 !important;
+    color: #b91c1c !important;
+    border: 1px solid #fca5a5 !important;
+    font-weight: 600;
+}
+
+/* Status 3: Pending Approval / Green status box definition */
+.day-pending {
+    background-color: #dcfce7 !important;
+    color: #15803d !important;
+    border: 1px solid #bbf7d0 !important;
+    font-weight: 600;
+}
+
+/* Subtle modern animation lift states */
+.calendar-date-cell:not(.cell-empty):hover {
+    transform: scale(1.03);
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   SPLIT VIEW CONTAINER PATTERN (CALENDAR + HEADINGS GRID)
+   ========================================================================== */
+.split-dashboard-row {
+    display: flex !important;
+    width: 100% !important;
+    gap: 20px !important; /* Space between left and right column boxes */
+    align-items: flex-start !important;
+    margin: 20px 0;
+    box-sizing: border-box;
+}
+
+/* Allocate exact balanced grid weight profiles */
+.split-col-left {
+    flex: 1.2 !important; /* Slightly broader column box space for the calendar grid */
+    min-width: 0;
+}
+
+.split-col-right {
+    flex: 0.8 !important; /* Slightly more compact layout wrapper for schema headers */
+    min-width: 0;
+}
+
+/* Right side content wrapper card layout styling */
+.integrated-details-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+.details-header-ribbon {
+    background-color: #1e3a8a; /* Perfectly matches your blue calendar ribbon */
+    padding: 10px 18px;
+    border-radius: 6px;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.details-header-ribbon h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Clean Schema Header Grid Presentation Formatting */
+.schema-headings-table {
+    width: 100% !important;
+    display: table !important;
+    border-collapse: collapse !important;
+}
+
+.schema-headings-table thead th {
+    position: sticky !important;
+    top: 0 !important;
+    background-color: #f8fafc !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #334155 !important;
+    padding: 10px 12px !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    z-index: 2;
+}
+
+.schema-headings-table tbody tr {
+    border-bottom: 1px solid #f1f5f9 !important;
+}
+
+.schema-headings-table td {
+    padding: 12px !important;
+    font-size: 13px !important;
+    color: #475569 !important;
+    text-align: left !important;
+}
+
+.schema-headings-table td.bold-cell {
+    color: #0f172a !important;
+    font-weight: 600 !important;
+}
+
+.schema-headings-table td.code-cell {
+    font-family: 'Courier New', Courier, monospace !important;
+    color: #b91c1c !important; /* Crisp maroon code text style */
+    background-color: #fef2f2 !important;
+    padding: 4px 8px !important;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 8px;
+}
+
+/* Responsive adjustment break rule if window size collapses */
+@media (max-width: 992px) {
+    .split-dashboard-row {
+        flex-direction: column !important;
+    }
+    .split-col-left, .split-col-right {
+        width: 100% !important;
+        flex: none !important;
+    }
+}
+
+/* Sidebar Card Container */
+.scheme-sidebar {
+    width: 320px;
+    background: #ffffff;
+    border: 1px solid #ebeef5;
+    border-radius: 12px;
+    padding: 20px 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Category List Wrapper */
+.category-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* Individual Links (Forces rows, removes default link styling) */
+.category-list a, .category-item {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 12px 16px !important;
+    border-radius: 8px !important;
+    color: #4a5568 !important;         /* Modern slate gray text */
+    text-decoration: none !important;   /* Completely removes the blue underline */
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
+    width: 100%;
+    box-sizing: border-box !important;
+}
+
+/* Hover State */
+.category-list a:hover, .category-item:hover {
+    background-color: #f7fafc !important;
+    color: #1a202c !important;
+    padding-left: 20px !important;      /* Smooth subtle nudge to the right */
+}
+
+/* ACTIVE State (All Schemes Highlight) */
+.category-list a.active, .category-item.active {
+    background-color: #fff5f5 !important; /* Soft crimson/maroon tint background */
+    color: #9b2c2c !important;            /* Elegant deep corporate red/maroon */
+    font-weight: 600;
+}
+
+/* Numerical Badges */
+.category-list a span.scheme-badge, .scheme-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 26px !important;
+    height: 26px !important;
+    padding: 0 6px;
+    border-radius: 50px !important;       /* Perfect capsule shape */
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    background-color: #edf2f7 !important; /* Clean gray pill */
+    color: #718096 !important;
+    transition: all 0.25s ease;
+}
+
+/* Active Badge State */
+.category-list a.active span.scheme-badge, .category-item.active .scheme-badge {
+    background-color: #9b2c2c !important; /* Solid deep red background */
+    color: #ffffff !important;            /* High-contrast crisp white numbers */
+}
+
+/* Container Layout Base Wrapper */
+.abp-page-wrapper {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    box-sizing: border-box;
+    background-color: #f8fafc;
+}
+
+/* Structural Layout Columns */
+.abp-main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.abp-sidebar-stack {
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex-shrink: 0;
+}
+
+/* Intro Commitment Header Styles */
+.abp-section-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.abp-section-heading {
+    font-size: 1.75rem;
+    color: #800000; /* Rich Maroon Primary */
+    font-weight: 700;
+    margin-bottom: 12px;
+    position: relative;
+    display: inline-block;
+}
+
+/* Subtle maroon accent lines flanking heading */
+.abp-section-heading::before,
+.abp-section-heading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 1px;
+    background-color: #800000;
+}
+.abp-section-heading::before { left: -55px; }
+.abp-section-heading::after { right: -55px; }
+
+.abp-section-subtext {
+    font-size: 0.95rem;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+/* Five Pillars Grid Configuration */
+.abp-pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    width: 100%;
+}
+
+.abp-pillar-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 24px 16px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.abp-pillar-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px rgba(128, 0, 0, 0.06); /* Soft maroon bloom on hover */
+    border-color: #fca5a5;
+}
+
+/* Maroon Circle Icon Wrappers */
+.abp-icon-circle {
+    width: 54px;
+    height: 54px;
+    background-color: #fff5f5; /* Light soft maroon background */
+    color: #800000;            /* Deep Maroon icon fill */
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    margin-bottom: 16px;
+}
+
+.abp-pillar-card h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 10px 0;
+}
+
+.abp-pillar-card p {
+    font-size: 0.825rem;
+    color: #64748b;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Vision & Mission Double Horizontal Row */
+.abp-vision-mission-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.abp-vm-block {
+    background-color: #fffafb; /* Softest warm off-white cream background */
+    border: 1px solid #fee2e2;
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.abp-vm-icon {
+    font-size: 1.75rem;
+    color: #800000;
+    padding-top: 4px;
+}
+
+.abp-vm-text h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #800000;
+    margin: 0 0 8px 0;
+}
+
+.abp-vm-text p {
+    font-size: 0.875rem;
+    color: #475569;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Sidebar Widgets Layout styling */
+.abp-widget-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 24px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+}
+
+.abp-widget-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 20px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #800000; /* Accent line in corporate maroon */
+}
+
+/* Quick Links Internal Navigation */
+.abp-widget-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.abp-widget-nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    color: #475569;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.abp-widget-nav a i {
+    color: #800000; /* Maroon side navigation icons */
+    font-size: 1rem;
+    width: 18px;
+    text-align: center;
+}
+
+.abp-widget-nav a:hover {
+    background-color: #fff5f5;
+    color: #800000;
+    padding-left: 18px; /* Smooth directional transition nudge */
+}
+
+/* Contact Details List Breakdown */
+.abp-contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.abp-contact-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.abp-contact-item i {
+    color: #800000;
+    font-size: 1.05rem;
+    margin-top: 3px;
+    width: 16px;
+    text-align: center;
+}
+
+.abp-contact-item p {
+    font-size: 0.875rem;
+    color: #475569;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.abp-contact-item p span {
+    font-size: 0.775rem;
+    color: #94a3b8;
+}
+
+.abp-contact-item p a {
+    color: #800000;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.abp-contact-item p a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Scaling Viewports */
+@media (max-width: 1100px) {
+    .abp-pillars-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .abp-page-wrapper {
+        flex-direction: column;
+    }
+    .abp-sidebar-stack {
+        width: 100%;
+    }
+    .abp-pillars-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .abp-vision-mission-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============ ADMINISTRATIVE MODAL ============ */
+/* ============ ADMINISTRATIVE MODAL ============ */
+.admin-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-modal-backdrop.hidden {
+    display: none !important;
+}
+
+.admin-modal-card {
+    background-color: var(--content-bg);
+    border: 3px double var(--border-color);
+    width: 320px;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.admin-modal-header {
+    background: var(--nav-bar-bg);
+    color: #fff;
+    padding: 10px 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    border-bottom: 2px solid var(--header-border-gold);
+}
+
+.admin-modal-close {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.admin-modal-close:hover {
+    color: #fff;
+}
+
+.admin-modal-body {
+    padding: 15px;
+}
+
+.admin-form-group {
+    margin-bottom: 12px;
+}
+
+.admin-form-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.admin-form-input {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #bbb;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    outline: none;
+}
+
+.admin-form-input:focus {
+    border-color: #8c7247;
+    box-shadow: 0 0 3px rgba(140, 114, 71, 0.4);
+}
+
+.btn-admin-submit-classic {
+    width: 100%;
+    background: var(--nav-bar-bg);
+    color: #fff;
+    border: 1px solid var(--header-border-gold);
+    padding: 8px 10px;
+    font-weight: bold;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-admin-submit-classic:hover {
+    background: #6d5836;
+}
+
+/* ============ REFINED ADMINISTRATIVE FORM OVERLAY ============ */
+
+/* Modal Dim Overlay Backdrop base configuration */
+.admin-modal-backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    background-color: rgba(15, 23, 42, 0.6) !important; /* Premium dim dark slate tone */
+    backdrop-filter: blur(4px);
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 99999 !important; /* Sitting safely above all slider blocks */
+    transition: opacity 0.2s ease;
+}
+
+/* Toggle Switch class utility to toggle modal visibility state */
+.admin-modal-backdrop.hidden {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Form Container Card Structure */
+.admin-modal-card {
+    background-color: #ffffff !important;
+    border: 1px solid #e2e8f0;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+                0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    animation: modalPopIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalPopIn {
+    from { transform: scale(0.96) translateY(-10px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* Ribbon Bar Heading row across top of card */
+.admin-modal-header {
+    background-color: #1e3a8a !important; /* Deep corporate classic navy blue */
+    color: #ffffff !important;
+    padding: 14px 18px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-modal-close {
+    background: transparent;
+    border: none;
+    color: #ffffff !important;
+    font-size: 1.4rem;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.85;
+    transition: opacity 0.15s ease;
+}
+.admin-modal-close:hover {
+    opacity: 1;
+}
+
+.admin-modal-body {
+    padding: 24px;
+    background-color: #ffffff !important;
+}
+
+/* Individual Row Block Formatting */
+.admin-form-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    margin-bottom: 18px !important;
+    text-align: left !important;
+}
+
+.admin-form-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569 !important; /* Modern text slate gray */
+}
+
+/* Universal Base Input Stylesheet specifications */
+.admin-form-input {
+    width: 100% !important;
+    padding: 10px 12px !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 6px !important;
+    font-size: 0.9rem !important;
+    color: #0f172a !important;
+    background-color: #ffffff !important;
+    box-sizing: border-box !important;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Input Target Focus visual states */
+.admin-form-input:focus {
+    outline: none !important;
+    border-color: #800000 !important; /* Focused ring shifts to your deep corporate maroon theme */
+    box-shadow: 0 0 0 3px rgba(128, 0, 0, 0.12) !important;
+}
+
+/* Native Browser Pattern Invalid Alert State Modifier */
+.admin-form-input:placeholder-shown:invalid {
+    border-color: #cbd5e1;
+}
+.admin-form-input:not(:placeholder-shown):invalid {
+    border-color: #ef4444; /* Flashes clean red outline if alphabetic letters are thrown into Username */
+}
+
+/* Primary Form Submit Execution Control Button */
+.btn-admin-submit-classic {
+    width: 100% !important;
+    padding: 11px !important;
+    background-color: #800000 !important; /* Deep Corporate Maroon solid background color */
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 6px !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-admin-submit-classic:hover {
+    background-color: #660000 !important; /* Deeper maroon fill variant on click hover */
+}
+
+.btn-admin-submit-classic:active {
+    transform: scale(0.99);
+}

@@ -1,7 +1,7 @@
 <?php
     include("include/top-nav.php");
     ?>
-<body>
+<body class="home-body">
 
     <!--<div class="top-bar">
         <div class="container top-bar-nav">
@@ -23,79 +23,6 @@
     ?>
 
     <main class="container updates-container">
-        <section class="update-col">
-            <div class="col-header">
-                <h3><i class="fa-solid fa-bullhorn text-maroon"></i> Latest Announcements</h3>
-                <a href="pages/announcements.html" class="view-all">View All ></a>
-            </div>
-            <?php
-            $sql_check="SELECT EVENTID, EVENTNAME, EVENTDETAIL, POSTEDDATE FROM events ORDER BY EVENTID DESC LIMIT 5;";
-            $s_check=mysqli_query($connect,$sql_check) or die(mysql_error());
-            
-            $Count=mysqli_num_rows($s_check);
-            
-            ?>
-            <div class="list-wrapper">
-            <?php
-        // 2. CRITICAL: Ensure this variable name matches $s_check perfectly (No extra 'S' or 's')
-        while($row = mysqli_fetch_array($s_check)){ 
-        ?>    
-            
-            <div class="list-item">
-                    <div class="date-badge">
-                        <span class="day"><?php echo date('d',strtotime($row['POSTEDDATE'])) ?></span>
-                        <span class="month"><?php echo date('M',strtotime($row['POSTEDDATE'])) ?></span>
-                    </div>
-                    <div class="item-details">
-                        <a href="#" class="item-title"><?php echo $row['EVENTNAME'] ?> – Applications Open <span class="tag-new">New</span></a>
-                        <p class="item-sub"><?php echo $row['EVENTDETAIL'] ?></p>
-                    </div>
-                </div>
-                <?php
-            }
-                ?>
-                
-            </div>
-        </section>
-
-        <section class="update-col">
-            <div class="col-header">
-                <h3><i class="fa-regular fa-calendar-days text-maroon"></i>Welfare Schemes</h3>
-                <a href="pages/events.html" class="view-all">View All ></a>
-            </div>
-            <?php
-// 1. Querying your exact columns: title, description, and posted_date from `schemes`
-// Filtering by your 'Health & Wellness' category (or 'Financial Assistance' depending on what you want to feature under welfare)
-$sql_welfare = "SELECT title, description, posted_date FROM schemes WHERE category = 'Health & Wellness' AND status = 'Active' ORDER BY posted_date DESC LIMIT 3;";
-$welfare_result = mysqli_query($connect, $sql_welfare) or die(mysqli_error($connect));
-?>
-
-<div class="list-wrapper">
-    <?php
-    // 2. Loop through your dataset rows
-    while($row = mysqli_fetch_assoc($welfare_result)){
-    ?>
-    <div class="list-item">
-        <div class="date-badge">
-            <span class="day"><?php echo date('d', strtotime($row['posted_date'])) ?></span>
-            <span class="month"><?php echo date('M', strtotime($row['posted_date'])) ?></span>
-        </div>
-        <div class="item-details">
-            <h4 class="item-title"><?php echo htmlspecialchars($row['title']); ?></h4>
-            <p class="item-sub"><?php echo htmlspecialchars($row['description']); ?></p>
-        </div>
-    </div>
-    <?php
-    }
-    // Fallback if no schemes match the dynamic filter criteria
-    if(mysqli_num_rows($welfare_result) == 0) {
-        echo "<p style='padding: 15px; color: #718096; font-size: 0.9rem;'>No recent active schemes found in this category.</p>";
-    }
-    ?>
-</div>
-</div>
-        </section>
-
         <section class="update-col executive-committee-container">
             <div class="col-header">
                 <h3><i class="fa-solid fa-user-tie text-maroon"></i> Executive Committee Members</h3>
@@ -133,49 +60,139 @@ $welfare_result = mysqli_query($connect, $sql_welfare) or die(mysqli_error($conn
                 </table>
             </div>
         </section>
+
+        <section class="update-col">
+            <div class="col-header">
+                <h3><i class="fa-regular fa-image text-maroon"></i> Photo Gallery</h3>
+                <a href="main.php?frmid=4" class="view-all">View All <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+            <?php
+            $sql_widget = "SELECT * FROM albums WHERE status = 'ACTIVE' ORDER BY created_at DESC LIMIT 4";
+            $res_widget = mysqli_query($connect, $sql_widget);
+            $widget_albums = [];
+            if ($res_widget && mysqli_num_rows($res_widget) > 0) {
+                while ($row = mysqli_fetch_assoc($res_widget)) {
+                    $img = !empty($row['cover_image']) ? $row['cover_image'] : '';
+                    $path = !empty($img) ? "assets/images/album/" . $img : "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22350%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000/svg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f1f5f9%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%2394a3b8%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22middle%22%3ENo%20Image%3C%2Ftext%3E%3C%2Fsvg%3E";
+                    $widget_albums[] = [
+                        'src' => $path,
+                        'name' => $row['album_name']
+                    ];
+                }
+            }
+            
+            // Fill with default ones if fewer than 4
+            $defaults = [
+                ['src' => 'assets/images/gallery1.jpeg', 'name' => 'Gallery Image 1'],
+                ['src' => 'assets/images/gallery2.jpeg', 'name' => 'Gallery Image 2'],
+                ['src' => 'assets/images/gallery3.png', 'name' => 'Gallery Image 3'],
+                ['src' => 'assets/images/gallery4.jpg', 'name' => 'Gallery Image 4']
+            ];
+            for ($i = count($widget_albums); $i < 4; $i++) {
+                $widget_albums[] = $defaults[$i - count($widget_albums)];
+            }
+            ?>
+            <div class="gallery-widget">
+                <div class="gallery-main-slide">
+                    <img id="galleryMainImg" src="<?php echo htmlspecialchars($widget_albums[0]['src']); ?>" alt="<?php echo htmlspecialchars($widget_albums[0]['name']); ?>" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22350%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000/svg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f1f5f9%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%2394a3b8%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22middle%22%3ENo%20Image%20Available%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                    <button class="gallery-nav-btn prev-btn" id="galleryPrevBtn"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="gallery-nav-btn next-btn" id="galleryNextBtn"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <div class="gallery-thumbs-row">
+                    <?php foreach ($widget_albums as $index => $album): ?>
+                        <div class="gallery-thumb-item<?php echo $index === 0 ? ' active' : ''; ?>" data-src="<?php echo htmlspecialchars($album['src']); ?>">
+                            <img src="<?php echo htmlspecialchars($album['src']); ?>" alt="<?php echo htmlspecialchars($album['name']); ?>" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22350%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000/svg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f1f5f9%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%2394a3b8%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22middle%22%3ENo%20Image%20Available%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const mainImg = document.getElementById("galleryMainImg");
+                const prevBtn = document.getElementById("galleryPrevBtn");
+                const nextBtn = document.getElementById("galleryNextBtn");
+                const thumbs = document.querySelectorAll(".gallery-thumb-item");
+                let currentIndex = 0; // Initially pointing to the first image (index 0)
+
+                function updateGallery(index) {
+                    currentIndex = index;
+                    const targetThumb = thumbs[currentIndex];
+                    if (!targetThumb) return;
+                    const newSrc = targetThumb.getAttribute("data-src");
+                    
+                    mainImg.src = newSrc;
+                    
+                    thumbs.forEach(t => t.classList.remove("active"));
+                    targetThumb.classList.add("active");
+                }
+
+                thumbs.forEach((thumb, idx) => {
+                    thumb.addEventListener("click", () => {
+                        updateGallery(idx);
+                    });
+                });
+
+                prevBtn.addEventListener("click", () => {
+                    let prevIndex = currentIndex - 1;
+                    if (prevIndex < 0) {
+                        prevIndex = thumbs.length - 1;
+                    }
+                    updateGallery(prevIndex);
+                });
+
+                nextBtn.addEventListener("click", () => {
+                    let nextIndex = currentIndex + 1;
+                    if (nextIndex >= thumbs.length) {
+                        nextIndex = 0;
+                    }
+                    updateGallery(nextIndex);
+                });
+            });
+            </script>
+        </section>
+
+        <section class="update-col">
+            <div class="col-header">
+                <h3><i class="fa-solid fa-bullhorn text-maroon"></i> Latest Announcements</h3>
+                <a href="pages/announcements.php" class="view-all">View All ></a>
+            </div>
+            <?php
+            $sql_check="SELECT EVENTID, EVENTNAME, EVENTDETAIL, POSTEDDATE FROM events ORDER BY POSTEDDATE DESC LIMIT 5;";
+            $s_check=mysqli_query($connect,$sql_check) or die(mysql_error());
+            
+            $Count=mysqli_num_rows($s_check);
+            
+            ?>
+            <div class="marquee-container">
+                <div class="list-wrapper marquee-track">
+                <?php
+                while($row = mysqli_fetch_array($s_check)){ 
+                ?>    
+                <div class="list-item">
+                    <div class="date-badge">
+                        <span class="day"><?php echo date('d',strtotime($row['POSTEDDATE'])) ?></span>
+                        <span class="month"><?php echo date('M',strtotime($row['POSTEDDATE'])) ?></span>
+                    </div>
+                    <div class="item-details">
+                        <a href="pages/announcements.php" class="item-title"><?php echo $row['EVENTNAME'] ?> <span class="tag-new">New</span></a>
+                        <p class="item-sub"><?php echo $row['EVENTDETAIL'] ?></p>
+                    </div>
+                </div>
+                <?php
+                }
+                ?>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <section class="bottom-dashboard-block">
-        <div class="container bottom-flex-layout">
-            
-            <div class="stats-sub-banner">
-                <div class="stat-item">
-                    <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
-                    <div class="stat-content"><h3>5000+</h3><p>Benefited</p></div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon"><i class="fa-regular fa-folder-open"></i></div>
-                    <div class="stat-content"><h3>25+</h3><p>Active Schemes</p></div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon"><i class="fa-regular fa-calendar-check"></i></div>
-                    <div class="stat-content"><h3>100+</h3><p>Events / Year</p></div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon"><i class="fa-solid fa-headset"></i></div>
-                    <div class="stat-content"><h3>10+</h3><p>Services</p></div>
-                </div>
-            </div>
 
-            <div class="gallery-sub-block">
-                <div class="col-header compact-gallery-header">
-                    
-                    <a href="pages/gallery.html" class="view-all">View Gallery ></a>
-                </div>
-                <div class="gallery-strip">
-                    <div class="gallery-thumb"><img src="assets/images/gallery1.jpeg" alt="1" onerror="this.src='https://picsum.photos/150/80?random=1'"></div>
-                    <div class="gallery-thumb"><img src="assets/images/gallery2.jpeg" alt="2" onerror="this.src='https://picsum.photos/150/80?random=2'"></div>
-                    <div class="gallery-thumb"><img src="assets/images/gallery3.png" alt="3" onerror="this.src='https://picsum.photos/150/80?random=3'"></div>
-                    <div class="gallery-thumb"><img src="assets/images/galler4.jpg" alt="4" onerror="this.src='https://picsum.photos/150/80?random=4'"></div>
-                </div>
-            </div>
-
-        </div>
-    </section>
 <?php
 include("include/footer.php")
 ?>
-     
+<script src="js/script.js"></script>
+
 </body>
 </html>
 <?php

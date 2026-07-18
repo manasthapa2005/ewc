@@ -14,7 +14,8 @@
         <p class="hero-desc">Committed to the welfare and well-being of ONGC employees and their families.</p>
         <div class="hero-actions">
             <button class="btn btn-maroon"><i class="fa-solid fa-layer-group"></i> Explore Services</button>
-            <button class="btn btn-outline"><i class="fa-solid fa-circle-info"></i> Know More</button>
+            <a href="main.php?frmid=6" class="btn btn-outline" style="text-decoration: none;"><i class="fa-solid fa-circle-info"></i> Know More</a>
         </div>
     </div>
+
 </section>

@@ -1,0 +1,2335 @@
+/* --- RESET & FIXED VIEWPORT CONFIGURATION --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+}
+
+:root {
+    --maroon-primary: #7B1416;
+    --maroon-dark: #5A0E10;
+    --green-nav: #0F6F34;
+    --green-nav-hover: #0A4E24;
+    --text-dark: #333333;
+    --text-light: #666666;
+    --bg-light: #F9F9F9;
+    --border-color: #E6E6E6;
+}
+
+/* HARD BLOCK TO PREVENT SCROLLING AT 100% ZOOM */
+body,
+html {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #F4F6F9;
+    color: var(--text-dark);
+}
+
+.container {
+    width: 100%;
+    max-width: 1366px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.text-maroon {
+    color: var(--maroon-primary);
+}
+
+/* --- TOP GREEN BAR (Calculated Target: 4vh) --- */
+
+/* --- MAIN HEADER NAV (Calculated Target: 7vh) --- */
+/* --- UPDATED MAIN HEADER NAV (7vh) --- */
+.main-header {
+    height: 7vh;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid var(--maroon-primary);
+    /* Dark red top-line accent border */
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.brand-identity {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-ongc {
+    height: 4.8vh;
+    width: auto;
+    object-fit: contain;
+}
+
+.brand-text h1 {
+    font-size: 16px;
+    color: var(--maroon-primary);
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.brand-text p {
+    font-size: 9px;
+    color: #777777;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Crisp desktop spacing */
+}
+
+/* Base navigation items styling */
+.nav-item {
+    text-decoration: none;
+    color: #444444;
+    font-size: 12.5px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.nav-item i {
+    font-size: 13px;
+    color: var(--maroon-primary);
+    /* Colored iconography matching Image 2 */
+}
+
+/* Home / Active Link highlight pill */
+.nav-item.current {
+    background-color: #FDF3F3;
+    color: var(--maroon-primary);
+}
+
+/* Universal hover state */
+.nav-item:hover {
+    color: var(--maroon-primary);
+    background-color: #F9F9F9;
+}
+
+/* Subtle background pills for Feedback and About Us */
+.nav-item.bg-pill {
+    background-color: #F7F5F5;
+}
+
+.nav-item.bg-pill:hover {
+    background-color: #EFEAEA;
+}
+
+/* Admin Login standalone prominent block matching layout mock perfectly */
+.admin-login-btn {
+    background-color: var(--maroon-primary);
+    color: #FFFFFF !important;
+    text-decoration: none;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+    margin-left: 5px;
+}
+
+.admin-login-btn i {
+    font-size: 13px;
+}
+
+.admin-login-btn i.fa-chevron-down {
+    font-size: 9px;
+    opacity: 0.8;
+}
+
+.admin-login-btn:hover {
+    background-color: var(--maroon-dark);
+}
+
+/* --- COMPACT HERO SECTION WITH FADE CAROUSEL (24vh) --- */
+.hero-section {
+    height: 20vh;
+    position: relative;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Absolute Positioning Container for Background Tracks */
+.hero-slides {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+    /* Smooth CSS cross-fade timing */
+    z-index: 1;
+}
+
+/* State changes driven cleanly by JavaScript state tracking */
+.slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+/* Enforces foreground typography and buttons remain readable on top of fading backdrops */
+.hero-content {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+}
+
+.welcome-tag {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+
+.hero-section h2 {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.hero-section h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    opacity: 0.95;
+}
+
+.hero-desc {
+    font-size: 11.5px;
+    opacity: 0.85;
+    margin-bottom: 10px;
+    max-width: 600px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-maroon {
+    background-color: var(--maroon-primary);
+    color: #FFFFFF;
+    border: none;
+}
+
+.btn-maroon:hover {
+    background-color: var(--maroon-dark);
+}
+
+.btn-outline {
+    background: transparent;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+}
+
+.btn-outline:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* --- FLOATING MODERN WELFARE GRID --- */
+.welfare-grid-section {
+    height: 3vh;
+    /* Scaled down to reduce spacing before lower sections */
+    position: relative;
+    z-index: 10;
+}
+
+.welfare-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    width: 100%;
+    height: 8vh;
+    /* Fixed metric box constraints */
+    margin-top: -4vh;
+    /* Center-balanced overlap precisely over the carousel edge */
+}
+
+/* Individual modern card blocks */
+.grid-card {
+    background-color: #FFFFFF;
+    padding: 6px 4px;
+    height: 100%;
+    /* Spans exactly the fixed height of the grid wrapper */
+    text-align: center;
+    border-radius: 6px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.grid-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    width: 100%;
+}
+
+.card-icon img {
+    height: 22px;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.card-info h5 {
+    font-size: 11px;
+    font-weight: 700;
+    color: #222222;
+    line-height: 1.2;
+}
+
+.card-info p {
+    font-size: 9.5px;
+    color: var(--text-light);
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
+
+/* --- FIXED THREE-COLUMN LOWER MAIN PANEL (34vh) --- */
+.updates-container {
+    height: 49vh;
+    display: grid;
+    grid-template-columns: 1.2fr 1.2fr 1fr;
+    /* Enforces side-by-side columns strictly */
+    gap: 15px;
+    padding-top: 10px;
+    /* Snaps the columns cleanly into place below the grid cards */
+    padding-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.update-col {
+    background-color: #FFFFFF;
+    border-radius: 6px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.01);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.col-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    border-bottom: 2px solid #F4F6F9;
+    padding-bottom: 6px;
+}
+
+.col-header h3 {
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.col-header .view-all {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--maroon-primary);
+    text-decoration: none;
+}
+
+.list-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.list-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.date-badge {
+    background-color: #FFF0F1;
+    border: 1px solid #FFD1D4;
+    color: var(--maroon-primary);
+    min-width: 42px;
+    height: 42px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.date-badge.bg-orange {
+    background-color: #FFF5EC;
+    border-color: #FFE3CC;
+    color: #D97706;
+}
+
+.date-badge .day {
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.date-badge .month {
+    font-size: 8px;
+    font-weight: 700;
+    margin-top: 1px;
+}
+
+.item-details {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.item-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #222222;
+    text-decoration: none;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tag-new {
+    background-color: #3B82F6;
+    color: #FFFFFF;
+    font-size: 8px;
+    font-weight: 700;
+    padding: 0px 3px;
+    border-radius: 2px;
+}
+
+.item-sub {
+    font-size: 10.5px;
+    color: var(--text-light);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Quick Links formatting optimization */
+.quick-links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.quick-links-list a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    text-decoration: none;
+    color: #444444;
+    font-size: 11.5px;
+    font-weight: 600;
+}
+
+.quick-links-list a i {
+    color: var(--maroon-primary);
+    width: 14px;
+    text-align: center;
+}
+
+/* --- COMBINED BOTTOM BLOCK: STATS + GALLERY (Calculated Target: 18vh) --- */
+.bottom-dashboard-block {
+    height: 18vh;
+    background-color: #FFFFFF;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+}
+
+.bottom-flex-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 30px;
+    width: 100%;
+}
+
+/* Redesigned clean side bar stats banner row */
+.stats-sub-banner {
+    background-color: var(--maroon-primary);
+    border-radius: 6px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    padding: 0 10px;
+    color: #FFFFFF;
+    height: 14vh;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+
+.stat-icon i {
+    font-size: 18px;
+    opacity: 0.85;
+}
+
+.stat-content h3 {
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.stat-content p {
+    font-size: 10px;
+    opacity: 0.8;
+    white-space: nowrap;
+}
+
+/* Compact gallery subsystem space container */
+.gallery-sub-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 14vh;
+}
+
+.compact-gallery-header {
+    margin-bottom: 6px !important;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+}
+
+.gallery-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+}
+
+.gallery-thumb {
+    border-radius: 4px;
+    overflow: hidden;
+    height: 9vh;
+    border: 1px solid var(--border-color);
+}
+
+.gallery-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- DASHBOARD FOOTER UTILITY LINE (Calculated Target: 4vh) --- */
+.main-footer {
+    height: 3vh;
+    background-color: #222222;
+    color: #AAAAAA;
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+    border-top: 2px solid var(--maroon-primary);
+}
+
+.footer-strip-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.footer-center-links a {
+    color: #BBBBBB;
+    text-decoration: none;
+    margin: 0 4px;
+}
+
+.footer-right-brands {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.social-links {
+    display: flex;
+    gap: 6px;
+}
+
+.social-links a {
+    color: #FFFFFF;
+    background: #333333;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    text-decoration: none;
+}
+
+.logo-digital-india {
+    height: 2.2vh;
+    width: auto;
+    opacity: 0.8;
+}
+
+/* --- MASTER INTERIOR LAYOUT CONFIGURATIONS --- */
+body.interior-body {
+    background-color: #F8FAFC;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.interior-main-layout {
+    flex: 1;
+    height: 89vh;
+    /* Occupies the exact available space between header and footer */
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    overflow: hidden;
+}
+
+.page-title-block {
+    margin-bottom: 12px;
+}
+
+.page-title-block h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1E293B;
+}
+
+.page-title-block p {
+    font-size: 12px;
+    color: #64748B;
+}
+
+/* --- STEP TRACKER STYLING (Booking Request) --- */
+.step-tracker-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    background-color: #FFFFFF;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #E2E8F0;
+    margin-bottom: 12px;
+}
+
+.step-node {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0.5;
+}
+
+.step-node.active {
+    opacity: 1;
+}
+
+.step-number {
+    width: 28px;
+    height: 28px;
+    background-color: #F1F5F9;
+    color: #475569;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.step-node.active .step-number {
+    background-color: var(--maroon-primary);
+    color: #FFFFFF;
+}
+
+.step-text h5 {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1E293B;
+}
+
+.step-text p {
+    font-size: 10px;
+    color: #64748B;
+    line-height: 1.2;
+}
+
+/* --- FILTER BOXES & TOOLBARS --- */
+.filter-search-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.filter-search-card h4 {
+    font-size: 12.5px;
+    margin-bottom: 8px;
+    color: #334155;
+}
+
+.filter-form-inputs {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+}
+
+.input-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.input-field-group label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748B;
+}
+
+.input-field-group input {
+    padding: 6px 10px;
+    border: 1px solid #CBD5E1;
+    border-radius: 4px;
+    font-size: 12px;
+    height: 32px;
+}
+
+.btn-search-submit,
+.btn-filter-apply {
+    background-color: var(--maroon-primary);
+    color: #FFFFFF;
+    border: none;
+    padding: 0 20px;
+    height: 32px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* --- FACILITIES TILES GRID --- */
+.facilities-selection-section h4 {
+    font-size: 13px;
+    margin-bottom: 8px;
+    color: #334155;
+}
+
+.facilities-grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+}
+
+.facility-select-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    padding: 15px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.facility-select-card:hover {
+    border-color: var(--maroon-primary);
+    transform: translateY(-2px);
+}
+
+.facility-icon-wrap {
+    width: 40px;
+    height: 40px;
+    background: #FFF5F5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px auto;
+}
+
+.facility-icon-wrap i {
+    font-size: 16px;
+}
+
+.facility-select-card h5 {
+    font-size: 12px;
+    font-weight: 600;
+    color: #334155;
+}
+
+/* --- BOOKING STATUS TABLE LAYOUT --- */
+.booking-metrics-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.metric-mini-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.m-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.m-icon.blue {
+    background: #EFF6FF;
+    color: #2563EB;
+}
+
+.m-icon.orange {
+    background: #FFF7ED;
+    color: #EA580C;
+}
+
+.m-icon.green {
+    background: #F0FDF4;
+    color: #16A34A;
+}
+
+.m-icon.light-green {
+    background: #F0FDFA;
+    color: #0D9488;
+}
+
+.m-icon.red {
+    background: #FEF2F2;
+    color: #DC2626;
+}
+
+.m-data h4 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.m-data p {
+    font-size: 10.5px;
+    color: #64748B;
+}
+
+.table-toolbar-row {
+    display: flex;
+    gap: 10px;
+    background: #FFFFFF;
+    padding: 10px;
+    border-radius: 6px 6px 0 0;
+    border: 1px solid #E2E8F0;
+    border-bottom: none;
+    align-items: center;
+}
+
+.table-toolbar-row input,
+.table-toolbar-row select {
+    padding: 4px 8px;
+    border: 1px solid #CBD5E1;
+    border-radius: 4px;
+    font-size: 12px;
+    height: 30px;
+}
+
+.table-search-input {
+    flex: 1;
+}
+
+.btn-export-excel {
+    background: #F1F5F9;
+    border: 1px solid #CBD5E1;
+    height: 30px;
+    width: 35px;
+    border-radius: 4px;
+    color: #15803D;
+    cursor: pointer;
+}
+
+/* TABLE CONSTRAINTS WITH INTERNAL INTERNAL SCROLLING ENGINE */
+.table-scroll-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 0 0 6px 6px;
+}
+
+.status-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 12px;
+}
+
+.status-data-table th {
+    background: #F8FAFC;
+    padding: 10px;
+    font-weight: 600;
+    color: #475569;
+    border-bottom: 1px solid #E2E8F0;
+    position: sticky;
+    top: 0;
+}
+
+.status-data-table td {
+    padding: 10px;
+    border-bottom: 1px solid #F1F5F9;
+    color: #334155;
+}
+
+.badge-status {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.badge-status.status-pending {
+    background: #FEF3C7;
+    color: #D97706;
+}
+
+.badge-status.status-confirmed {
+    background: #DCFCE7;
+    color: #15803D;
+}
+
+.badge-status.status-completed {
+    background: #E0F2FE;
+    color: #0369A1;
+}
+
+.badge-status.status-cancelled {
+    background: #FEE2E2;
+    color: #B91C1C;
+}
+
+.action-view-row {
+    background: none;
+    border: none;
+    color: #64748B;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.action-view-row:hover {
+    color: var(--maroon-primary);
+}
+
+/* --- WELFARE SCHEMES INTERIOR LAYOUT --- */
+.schemes-layout-split {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 20px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.schemes-sidebar-panel {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.category-menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+    text-align: left;
+    cursor: pointer;
+}
+
+.category-menu-item span {
+    background: #F1F5F9;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 10px;
+}
+
+.category-menu-item.active {
+    background: #FFF5F5;
+    color: var(--maroon-primary);
+}
+
+.category-menu-item.active span {
+    background: var(--maroon-primary);
+    color: #FFFFFF;
+}
+
+.schemes-cards-scroll-container {
+    flex: 1;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    align-content: flex-start;
+    padding-right: 4px;
+}
+
+.scheme-info-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 130px;
+}
+
+.s-card-header {
+    display: flex;
+    gap: 12px;
+}
+
+.s-card-header .icon-head {
+    font-size: 22px;
+    color: #EA580C;
+    margin-top: 2px;
+}
+
+.s-card-header h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1E293B;
+    margin-bottom: 4px;
+}
+
+.s-card-header p {
+    font-size: 11px;
+    color: #64748B;
+    line-height: 1.3;
+}
+
+.s-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #F1F5F9;
+    padding-top: 8px;
+}
+
+.badge-active-tag {
+    background: #DCFCE7;
+    color: #16A34A;
+    font-size: 9.5px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 3px;
+}
+
+.view-details-link {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--maroon-primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.scheme-doc-download-card {
+    background: #FFFBEB;
+    border: 1px solid #FEF3C7;
+    border-radius: 6px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 130px;
+}
+
+.scheme-doc-download-card h5 {
+    font-size: 12.5px;
+    color: #B45309;
+}
+
+.scheme-doc-download-card p {
+    font-size: 10.5px;
+    color: #78350F;
+    line-height: 1.3;
+}
+
+.btn-download-guidelines {
+    background: #D97706;
+    color: #FFFFFF;
+    border: none;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+}
+
+/* --- IMAGE GALLERY VIEWPORT LAYOUT --- */
+.image-gallery-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.gallery-filter-toolbar {
+    display: flex;
+    gap: 8px;
+}
+
+.gallery-filter-toolbar select {
+    padding: 4px 10px;
+    border: 1px solid #CBD5E1;
+    border-radius: 4px;
+    font-size: 11.5px;
+    height: 30px;
+    background: #FFFFFF;
+}
+
+.btn-gallery-filter {
+    background: #334155;
+    color: #FFFFFF;
+    border: none;
+    padding: 0 14px;
+    font-size: 11.5px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.gallery-grid-scroll-box {
+    flex: 1;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    padding-bottom: 10px;
+}
+
+.album-media-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    height: fit-content;
+}
+
+.album-preview-frame {
+    width: 100%;
+    height: 110px;
+    background: #E2E8F0;
+    overflow: hidden;
+}
+
+.album-preview-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.album-media-card:hover .album-preview-frame img {
+    transform: scale(1.04);
+}
+
+.album-footer-meta {
+    padding: 8px 10px;
+}
+
+.album-footer-meta h5 {
+    font-size: 12px;
+    font-weight: 700;
+    color: #334155;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.album-footer-meta p {
+    font-size: 10px;
+    color: #64748B;
+    margin-top: 1px;
+}
+
+.gallery-action-footer-row {
+    display: flex;
+    justify-content: center;
+    padding-top: 5px;
+}
+
+.btn-load-more-photos {
+    background: var(--maroon-primary);
+    color: #FFFFFF;
+    border: none;
+    padding: 6px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-load-more-photos:hover {
+    background: var(--maroon-dark);
+}
+
+/* ==========================================
+   ADDED DESIGN: MEMBER ELECTED FORM SECTION
+   ========================================== */
+
+/* This targets only the wrapper and avoids global body styles */
+.member-form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.member-form-wrapper .form-container {
+    background-color: #ffffff;
+    max-width: 850px;
+    width: 100%;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-top: 5px solid #2e7d32;
+    box-sizing: border-box;
+}
+
+.member-form-wrapper h2 {
+    color: #1b5e20;
+    font-size: 24px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.member-form-wrapper .form-subtitle {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 12px;
+}
+
+.member-form-wrapper .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.member-form-wrapper .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.member-form-wrapper label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+    text-align: left;
+}
+
+/* Scoped specifically to inputs INSIDE your form wrapper */
+.member-form-wrapper input,
+.member-form-wrapper select {
+    padding: 10px 14px;
+    font-size: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    outline: none;
+    transition: all 0.2s ease;
+    background-color: #fafafa;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.member-form-wrapper input:focus,
+.member-form-wrapper select:focus {
+    border-color: #2e7d32;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+}
+
+.member-form-wrapper .search-row {
+    margin-bottom: 25px;
+    max-width: 50%;
+}
+
+.member-form-wrapper .search-input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.member-form-wrapper .btn-search {
+    background-color: #1565c0;
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.member-form-wrapper .btn-search:hover {
+    background-color: #0d47a1;
+}
+
+.member-form-wrapper .submit-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.member-form-wrapper .btn-submit {
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.member-form-wrapper .btn-submit:hover {
+    background-color: #1b5e20;
+}
+
+/* Mobile responsive override */
+@media (max-width: 650px) {
+    .member-form-wrapper .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .member-form-wrapper .search-row {
+        max-width: 100%;
+    }
+}
+
+/* ==========================================
+   ADDED DESIGN: COMPACT GALLERY & SCROLL ALBUMS
+   ========================================== */
+
+.gallery-page-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+.gallery-page-wrapper h2 {
+    color: #1b5e20;
+    font-size: 24px;
+    margin-bottom: 15px;
+    border-bottom: 2px dashed #cccccc;
+    padding-bottom: 8px;
+}
+
+/* Compact Low-Profile Form Rules */
+.gallery-page-wrapper .form-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-top: 4px solid #2e7d32;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.gallery-page-wrapper .form-card h3 {
+    font-size: 15px;
+    color: #333;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+/* Horizontal alignment setup to save vertical space */
+.gallery-page-wrapper .form-row {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.gallery-page-wrapper .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Flexible widths for row inputs */
+.gallery-page-wrapper .flex-2 {
+    flex: 2;
+    min-width: 200px;
+}
+
+.gallery-page-wrapper .flex-1 {
+    flex: 1;
+    min-width: 120px;
+}
+
+.gallery-page-wrapper label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+}
+
+.gallery-page-wrapper input[type="text"] {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    outline: none;
+    background: #fafafa;
+}
+
+/* Styling native browser file pickers smoothly */
+.gallery-page-wrapper input[type="file"] {
+    font-size: 13px;
+    padding: 5px 0;
+}
+
+.gallery-page-wrapper .btn-create {
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    padding: 9px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s;
+}
+
+.gallery-page-wrapper .btn-create:hover {
+    background-color: #1b5e20;
+}
+
+/* --- SCROLLABLE ALBUMS CONTENT SECTION --- */
+.gallery-page-wrapper .album-section-container h3 {
+    font-size: 18px;
+    color: #2e7d32;
+    margin-bottom: 10px;
+}
+
+/* Limits panel height and forces clean inner scrolling */
+.gallery-page-wrapper .album-scroll-box {
+    max-height: 480px;
+    overflow-y: auto;
+    padding: 10px;
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+/* Modern responsive 3-column album layout display grid */
+.gallery-page-wrapper .album-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* Polished Card Designs matching image bounds */
+.gallery-page-wrapper .album-card {
+    background: #ffffff;
+    border: 2px solid #2e7d32;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+}
+
+.gallery-page-wrapper .image-wrapper {
+    width: 100%;
+    height: 180px;
+    background: #eaeaea;
+    overflow: hidden;
+}
+
+.gallery-page-wrapper .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Ensures custom uploaded image dimensions look proportional */
+}
+
+.gallery-page-wrapper .album-info {
+    padding: 12px;
+    background: #2e7d32;
+    color: white;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.gallery-page-wrapper .album-info h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.gallery-page-wrapper .btn-delete {
+    background: transparent;
+    color: #ffcdd2;
+    border: 1px solid #ffcdd2;
+    padding: 4px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: center;
+    transition: all 0.2s;
+}
+
+.gallery-page-wrapper .btn-delete:hover {
+    background: #d32f2f;
+    color: white;
+    border-color: #d32f2f;
+}
+
+/* Responsive adjustments for phones/tablets */
+@media (max-width: 900px) {
+    .gallery-page-wrapper .album-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .gallery-page-wrapper .album-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-page-wrapper .form-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+/* ==========================================
+   ADDED DESIGN: UPGRADED LABELED EVENTS TAB 
+   ========================================== */
+
+.events-page-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+.events-page-wrapper h2 {
+    color: #1b5e20;
+    font-size: 24px;
+    margin-bottom: 20px;
+    border-bottom: 2px dashed #cccccc;
+    padding-bottom: 8px;
+}
+
+/* Styled Button Nav Bar Layout Rows */
+.events-page-wrapper .events-tab-container {
+    display: flex;
+    gap: 8px;
+    margin-bottom: -1px;
+    /* Overlaps border nicely into card below */
+    position: relative;
+    z-index: 2;
+}
+
+.events-page-wrapper .tab-btn {
+    background: #f5f5f5;
+    color: #555555;
+    border: 1px solid #dcdcdc;
+    border-bottom: none;
+    padding: 10px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.events-page-wrapper .tab-btn:hover {
+    background: #e8e8e8;
+    color: #222222;
+}
+
+/* Active Selected Tab highlights */
+.events-page-wrapper .tab-btn.active-tab {
+    background: #ffffff;
+    color: #1b5e20;
+    border-color: #c8c8c8;
+    border-top: 3px solid #2e7d32;
+    padding-top: 8px;
+    /* Offset spacing balance for top thick border indicator */
+}
+
+/* Base Form Display Panel Body Card Styling Box */
+.events-page-wrapper .events-card-body {
+    background: #ffffff;
+    border: 1px solid #c8c8c8;
+    border-radius: 0 8px 8px 8px;
+    padding: 25px 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.events-page-wrapper .tab-content-panel {
+    display: none;
+    /* Hide panels uniformly by default rules */
+}
+
+.events-page-wrapper .tab-content-panel.active-panel {
+    display: block;
+    /* Show targeted wrapper content seamlessly */
+}
+
+.events-page-wrapper h3 {
+    font-size: 15px;
+    color: #333333;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Form Item Structural Row Rules */
+.events-page-wrapper .events-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 20px;
+}
+
+.events-page-wrapper label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #444444;
+}
+
+.events-page-wrapper input[type="text"],
+.events-page-wrapper textarea {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 14px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    outline: none;
+    background: #fafafa;
+    box-sizing: border-box;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+/* Disables free stretch breaking borders layout width boxes */
+.events-page-wrapper textarea {
+    resize: vertical;
+    font-family: inherit;
+    line-height: 1.5;
+}
+
+.events-page-wrapper input[type="text"]:focus,
+.events-page-wrapper textarea:focus {
+    border-color: #2e7d32;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.12);
+}
+
+/* Bottom Action Row and File Box Alignments */
+.events-page-wrapper .events-action-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #eeeeee;
+    padding-top: 18px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.events-page-wrapper .upload-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.events-page-wrapper .upload-box label {
+    margin: 0;
+}
+
+.events-page-wrapper input[type="file"] {
+    font-size: 13px;
+    color: #555;
+}
+
+/* Action Primary Green Buttons */
+.events-page-wrapper .btn-add-event {
+    background-color: #2e7d32;
+    color: #ffffff;
+    border: none;
+    padding: 12px 35px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    box-shadow: 0 2px 5px rgba(46, 125, 50, 0.2);
+}
+
+.events-page-wrapper .btn-add-event:hover {
+    background-color: #1b5e20;
+}
+
+.events-page-wrapper .btn-add-event:active {
+    transform: scale(0.98);
+}
+
+/* Responsive adjustment view collapses */
+@media (max-width: 650px) {
+    .events-page-wrapper .events-card-body {
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .events-page-wrapper .events-action-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .events-page-wrapper .btn-add-event {
+        width: 100%;
+    }
+}
+
+/* ==========================================
+   TAB PANEL DESIGN: CLEAN NO-BOX STRUCTURE
+   ========================================== */
+
+.registration-module-isolated {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+/* Header with Green Accent */
+.registration-module-isolated .registration-header h2 {
+    color: #1b5e20;
+    font-size: 24px;
+    margin-bottom: 25px;
+    margin-top: 0;
+}
+
+/* Tab Bar Wrapper Styling */
+.registration-module-isolated .tab-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: -1px;
+    /* Overlaps content panel border */
+    position: relative;
+    z-index: 2;
+}
+
+/* Standard Tab Buttons */
+.registration-module-isolated .tab-bar .action-btn {
+    background: #f5f5f5;
+    color: #555;
+    border: 1px solid #cccccc;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+}
+
+.registration-module-isolated .tab-bar .action-btn:hover {
+    background: #eaeaea;
+}
+
+/* Active Main Tab Highlight */
+.registration-module-isolated .tab-bar .active-tab {
+    background-color: #ffffff;
+    color: #2e7d32;
+    border-color: #cccccc;
+    border-bottom-color: #ffffff;
+    /* Fuses tab directly into panel */
+    font-weight: 600;
+}
+
+/* Linked Form Container Panel */
+.registration-module-isolated .booking-panel {
+    background: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 0 6px 6px 6px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    position: relative;
+    z-index: 1;
+}
+
+/* Grid Layout Splitting columns */
+.registration-module-isolated .booking-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 40px;
+}
+
+/* Vertical Stack Row Form Groups */
+.registration-module-isolated .row-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.registration-module-isolated .row-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+}
+
+/* Universal Inputs & Dropdowns */
+.registration-module-isolated input[type="text"],
+.registration-module-isolated input[type="tel"],
+.registration-module-isolated input[type="email"],
+.registration-module-isolated input[type="number"],
+.registration-module-isolated input[type="date"],
+.registration-module-isolated select,
+.registration-module-isolated .datepicker-trigger {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 14px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    outline: none;
+    background: #ffffff;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.registration-module-isolated input:focus,
+.registration-module-isolated select:focus {
+    border-color: #2e7d32;
+}
+
+/* Search Box Layout Integration */
+.registration-module-isolated .search-input-group {
+    display: flex;
+    gap: 8px;
+}
+
+.registration-module-isolated .search-input-group input {
+    flex: 1;
+}
+
+.registration-module-isolated .btn-search {
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    padding: 0 20px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.registration-module-isolated .btn-search:hover {
+    background-color: #1b5e20;
+}
+
+/* Datepicker Setup */
+.registration-module-isolated .datepicker-trigger {
+    padding: 0;
+    border: none;
+}
+
+/* Bottom Actions Toolbar Alignment */
+.registration-module-isolated .booking-action-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 25px;
+    padding-top: 20px;
+}
+
+/* Universal Panel Actions Button */
+.registration-module-isolated .btn-booking-action {
+    padding: 12px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s;
+}
+
+/* Dark Green Master Action Callout */
+.registration-module-isolated .booking-action-row .action-btn:nth-child(1) {
+    background-color: #2e7d32;
+    color: white;
+    box-shadow: 0 2px 5px rgba(46, 125, 50, 0.2);
+}
+
+.registration-module-isolated .booking-action-row .action-btn:nth-child(1):hover {
+    background-color: #1b5e20;
+}
+
+/* Destructive Action Styles */
+.registration-module-isolated .btn-cancel {
+    background-color: transparent;
+    color: #d32f2f;
+    border: 1px solid #ffcdd2;
+}
+
+.registration-module-isolated .btn-cancel:hover {
+    background-color: #d32f2f;
+    color: white;
+    border-color: #d32f2f;
+}
+
+/* Standard Secondary Actions */
+.registration-module-isolated .btn-print {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #cccccc;
+}
+
+.registration-module-isolated .btn-print:hover {
+    background-color: #eaeaea;
+}
+
+/* Responsive View Breakpoints */
+@media (max-width: 900px) {
+    .registration-module-isolated .booking-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .registration-module-isolated .tab-bar {
+        margin-bottom: 0;
+    }
+
+    .registration-module-isolated .tab-bar .action-btn {
+        border-radius: 6px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .registration-module-isolated .booking-panel {
+        border-radius: 6px;
+        padding: 20px;
+    }
+
+    .registration-module-isolated .booking-action-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .registration-module-isolated .btn-booking-action {
+        width: 100%;
+    }
+}
+
+/* ==========================================
+   SCROLL RESTORATION FIXES
+   ========================================== */
+
+/* 1. Force the main browser viewport to allow normal scrolling */
+html,
+body {
+    height: auto !important;
+    min-height: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* 2. Prevent parent elements from trapping or clipping the layout */
+main,
+#root,
+#app,
+.wrapper,
+.main-content {
+    height: auto !important;
+    overflow: visible !important;
+}
+
+/* 3. Strip layout restrictions on the form wrapper itself */
+.registration-module-isolated {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* 4. Ensure the structural content panel flows cleanly down the DOM */
+.registration-module-isolated .booking-panel {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* ==========================================
+   SCOPED BOOKING REQUEST STATUS MODULE
+   ========================================== */
+
+.booking-status-scoped {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+/* Header style with thin layout tracking border lines */
+.booking-status-scoped .status-header h2 {
+    color: #000000;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    margin-top: 0;
+    border-top: 1px dotted #000000;
+    border-bottom: 1px dotted #000000;
+    padding: 4px 0;
+}
+
+/* Secondary Section Label Text */
+.booking-status-scoped .status-label {
+    font-size: 14px;
+    color: #000000;
+    margin-bottom: 25px;
+    font-weight: normal;
+}
+
+/* Overflow Box Container to safeguard horizontal viewing windows */
+.booking-status-scoped .status-table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Core Table Structural Engine */
+.booking-status-scoped .status-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    /* Merges adjacent cell borders cleanly */
+    text-align: left;
+}
+
+/* Exact Header Column Text Formatting & Pure Solid Green Background */
+.booking-status-scoped .status-data-table thead th {
+    background-color: #008000;
+    /* Pure green backdrop matching the row image */
+    color: #ffffff;
+    /* Crisp white header lettering */
+    font-size: 13px;
+    font-weight: normal;
+    padding: 4px 6px;
+    border-right: 1px solid #ffffff;
+    /* White vertical dividing lines */
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+/* Strip the outer right boundary line marker from the end cell */
+.booking-status-scoped .status-data-table thead th:last-child {
+    border-right: none;
+}
+
+/* --- COLUMN METRIC CALIBRATIONS --- */
+.booking-status-scoped .col-id {
+    width: 15%;
+}
+
+.booking-status-scoped .col-name {
+    width: 5%;
+}
+
+.booking-status-scoped .col-desig {
+    width: 14%;
+}
+
+.booking-status-scoped .col-date {
+    width: 10%;
+}
+
+.booking-status-scoped .col-status {
+    width: 5%;
+}
+
+.booking-status-scoped .col-mobile {
+    width: 8%;
+}
+
+.booking-status-scoped .col-for {
+    width: 8%;
+}
+
+.booking-status-scoped .col-relation {
+    width: 21%;
+}
+
+.booking-status-scoped .col-days {
+    width: 14%;
+}
+
+/* Default empty row heights setup */
+.booking-status-scoped .status-data-table tbody td {
+    padding: 12px 6px;
+    font-size: 13px;
+    color: #000000;
+}
+
+/* ==========================================
+   SCOPED CHANGE PASSWORD MODULE (MODERN GREEN THEME)
+   ========================================== */
+
+.password-module-scoped {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Swapped to modern sans-serif */
+    box-sizing: border-box;
+}
+
+/* Heading style matching the dark green text with dashed bottom line */
+.password-module-scoped .password-header h2 {
+    color: #1b5e20;
+    /* Deep forest green */
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    margin-top: 0;
+    border-bottom: 1px dashed #cccccc;
+    /* Soft horizontal divider line */
+    padding-bottom: 12px;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Main modern card layout container with top green banner line */
+.password-module-scoped .password-panel {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    /* Light clean gray border */
+    border-top: 4px solid #2e7d32;
+    /* Signature thick green top accent bar */
+    border-radius: 8px;
+    /* Smooth card rounding */
+    padding: 25px 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    /* Soft outer background shadow */
+    box-sizing: border-box;
+}
+
+/* Strict horizontal baseline tracking layouts */
+.password-module-scoped .row-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 16px;
+    min-height: 36px;
+}
+
+/* Static Left-Hand Label Weights */
+.password-module-scoped .row-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555555;
+    /* Soft modern dark charcoal text */
+    flex: 0 0 160px;
+    /* Aligns input starts to a fixed column layout */
+}
+
+/* Modern clean secure password input boxes */
+.password-module-scoped input[type="password"] {
+    width: 260px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #cccccc;
+    /* Clean light gray outline */
+    border-radius: 4px;
+    /* Soft corner rounding matching image inputs */
+    outline: none;
+    background: #ffffff;
+    box-sizing: border-box;
+    height: 36px;
+    /* Taller footprint matching gallery inputs */
+    color: #333333;
+    flex: none;
+    transition: border-color 0.2s ease;
+}
+
+.password-module-scoped input[type="password"]:focus {
+    border-color: #2e7d32;
+    /* Highlights green on selection focus */
+}
+
+/* Action button grouping alignment matching label widths */
+.password-module-scoped .form-action-row {
+    display: flex;
+    padding-left: 160px;
+    /* Perfectly offsets button to sit under the input boxes */
+    margin-top: 20px;
+}
+
+/* Solid modern green button setup matching the "Create" button */
+.password-module-scoped .btn-change-password {
+    background-color: #2e7d32;
+    /* Mid-tone vibrant green backdrop */
+    color: #ffffff;
+    border: none;
+    /* Removed hard border outline */
+    border-radius: 4px;
+    /* Clean boxier corner profile */
+    padding: 0 28px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    height: 36px;
+    /* Balanced perfectly to match input height */
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+}
+
+.password-module-scoped .btn-change-password:hover {
+    background-color: #1b5e20;
+    /* Darker green background tone */
+}
+
+/* Responsive adjustment for small phone viewports */
+@media (max-width: 580px) {
+    .password-module-scoped .row-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .password-module-scoped .row-group label {
+        flex: none;
+    }
+
+    .password-module-scoped input[type="password"] {
+        width: 100%;
+    }
+
+    .password-module-scoped .form-action-row {
+        padding-left: 0;
+    }
+
+    .password-module-scoped .btn-change-password {
+        width: 100%;
+        text-align: center;
+    }
+}

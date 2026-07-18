@@ -1,8 +1,5 @@
 <?php
-if (basename($_SERVER['SCRIPT_FILENAME']) === 'admin.php') {
-    header("Location: ../main.php?frmid=7");
-    exit;
-}
+
 include("include/top-nav.php");
 ?>
 <body>
@@ -35,6 +32,14 @@ include("include/top-nav.php");
         
         <div class="admin-modal-body">
             <form id="admin-login-form" class="admin-form" method="POST" action="login-process.php">
+                <?php if (isset($_SESSION['login_error'])): ?>
+                    <div class="admin-login-error" style="color: #ef4444; background-color: #fee2e2; border: 1px solid #fecaca; padding: 10px; border-radius: 6px; margin-bottom: 15px; text-align: center; font-weight: 500;">
+                        <?php 
+                        echo htmlspecialchars($_SESSION['login_error']); 
+                        unset($_SESSION['login_error']);
+                        ?>
+                    </div>
+                <?php endif; ?>
                 
                 <div class="admin-form-group">
                     <label class="admin-form-label" for="admin-username">Username (Numeric ID Only)</label>

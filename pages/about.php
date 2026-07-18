@@ -132,7 +132,7 @@ include("include/top-nav.php");
                 </div>
                 <div class="abp-contact-item">
                     <i class="fa-solid fa-envelope"></i>
-                    <p><a href="mailto:ews.dehradun@ongc.co.in">ews.dehradun@ongc.co.in</a></p>
+                    <p><a href="mailto:ews.dehradun@ongc.co.in">ewc.dehradun@ongc.co.in</a></p>
                 </div>
             </div>
         </div>

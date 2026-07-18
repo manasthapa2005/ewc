@@ -1,6 +1,4 @@
-
-
-    <?php
+<?php
 if (!isset($_GET['frmid'])){$fid=0;}else{$fid=$_GET['frmid'];}
 
 if ($fid==0){

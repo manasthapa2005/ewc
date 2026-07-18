@@ -1,0 +1,250 @@
+/* ==========================================================================
+   ANNOUNCEMENTS PAGE — ONGC EWC
+   Premium card-grid layout for all announcement listings
+   ========================================================================== */
+
+/* ── Page header: title + back button ── */
+.ann-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #F1F5F9;
+    flex-shrink: 0; /* Always visible, never pushed down */
+}
+
+.ann-title-block h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #7B1416;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 3px 0;
+}
+
+.ann-title-block h2 i {
+    font-size: 18px;
+}
+
+.ann-title-block p {
+    font-size: 12px;
+    color: #64748B;
+    margin: 0;
+}
+
+.ann-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: #7B1416;
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.ann-back-btn:hover {
+    background: #5A0E10;
+    transform: translateY(-1px);
+}
+
+/* ── Scrollable cards wrapper — internal scroll, no page overflow ── */
+.ann-cards-scroll-area {
+    flex: 1;
+    min-height: 0;           /* Required for flex+overflow to work */
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 4px;      /* Offset for scrollbar */
+    padding-bottom: 12px;
+}
+
+.ann-cards-scroll-area::-webkit-scrollbar {
+    width: 5px;
+}
+.ann-cards-scroll-area::-webkit-scrollbar-track {
+    background: #F1F5F9;
+    border-radius: 4px;
+}
+.ann-cards-scroll-area::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 4px;
+}
+.ann-cards-scroll-area::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+}
+
+/* ── Announcement Cards Grid ── */
+.ann-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+/* ── Individual Announcement Card ── */
+.ann-card {
+    display: flex;
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #E8EDF3;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    position: relative;
+    transition: box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.ann-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+    transform: translateY(-3px);
+}
+
+/* ── Left date strip ── */
+.ann-card-date-strip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    padding: 16px 10px;
+    gap: 1px;
+    flex-shrink: 0;
+}
+
+.ann-day {
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.ann-month {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.ann-year {
+    font-size: 9.5px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+/* ── Card body ── */
+.ann-card-body {
+    flex: 1;
+    padding: 14px 16px 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+}
+
+.ann-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.ann-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #ffffff;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+.ann-card-date-full {
+    font-size: 10.5px;
+    color: #94A3B8;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.ann-card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1E293B;
+    margin: 0;
+    line-height: 1.4;
+    /* Allow up to 2 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.ann-card-detail {
+    font-size: 12px;
+    color: #64748B;
+    line-height: 1.5;
+    margin: 0;
+    /* Allow up to 3 lines then truncate */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.ann-card-detail.expanded {
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+}
+
+/* ── Right accent bar ── */
+.ann-card-indicator {
+    width: 4px;
+    flex-shrink: 0;
+    opacity: 0.85;
+}
+
+/* ── Empty state ── */
+.ann-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #94A3B8;
+}
+
+.ann-empty-state i {
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: 16px;
+    color: #CBD5E1;
+}
+
+.ann-empty-state h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.ann-empty-state p {
+    font-size: 13px;
+    color: #94A3B8;
+}
+
+/* ── Responsive: single column on narrow viewports ── */
+@media (max-width: 900px) {
+    .ann-grid {
+        grid-template-columns: 1fr;
+    }
+    .ann-page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}

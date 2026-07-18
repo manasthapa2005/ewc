@@ -11,7 +11,7 @@
     <div style="padding: 100px; text-align: center;">
         <h1>Contact Us</h1>
         <p>This page is under construction.</p>
-        <a href="../index.html" style="color: #7B1416;">&larr; Back to Home</a>
+        <a href="../main.php?frmid=0" style="color: #7B1416;">&larr; Back to Home</a>
     </div>
 </body>
 </html>
